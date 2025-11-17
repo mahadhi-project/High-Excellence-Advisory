@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>High Excellence Advisory</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Times New Roman, sans-serif;
+  background-color: #DAEEF3;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+     
+header {
+   position: fixed;
+   top: 0;
+   width: 100%;
+   background-image: linear-gradient(to right, #003366, #0066cc);
+   color: #FFA500;
+   text-align: center;
+   padding: 10px 0 0;
+   z-index: 1000;
+   box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+}
+
+header h1 {
+   font-size: 26px;
+   font-weight: 600;
+   padding: 8px 0;
+}
+
+       
+nav ul {
+   list-style: none;
+   display: flex;
+   justify-content: center;
+   background-color: rgba(0,0,0,0.2);
+   backdrop-filter: blur(2px);
+}
+
+nav ul li a {
+   display: block;
+   color: #fff;
+   padding: 10px 22px;
+   font-weight: 600;
+   text-decoration: none;
+}
+
+nav ul li a:hover {
+   background-color: #0094ff;
+   border-radius: 6px;
+}
+
+main {
+   width: 90%;
+   max-width: 900px;
+   margin: 0 auto;
+   padding: 20px;
+   text-align: center;
+   margin-top: 160px;         
+}
+
+h2 {
+   color: #FCA012;
+   font-size: 28px;
+   margin-bottom: 25px;
+   font-weight: 600;
+}
+
+p {
+   font-size: 18px;
+   line-height: 1.7;
+   margin-bottom: 20px;
+}
+
+   
+.search-container {
+   position: relative;
+   max-width: 500px;
+   margin: 20px auto;
+   text-align: left;
+}
+
+.search-container input {
+   width: 100%;
+   padding: 12px 15px 12px 35px;
+   border-radius: 8px;
+   border: 1px solid #bbb;
+   font-size: 16px;
+}
+
+.search-icon {
+   position: absolute;
+   left: 10px;
+   top: 50%;
+   transform: translateY(-50%);
+   color: #666;
+   font-size: 18px;
+}
+
+.suggestions-box {
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    background: white;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 100;
+}
+
+.suggestions-box div {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestions-box div:hover {
+    background-color: #f0f0f0;
+}
+
+footer {
+    text-align: center;
+    background-color: #003366;
+    padding: 18px 0;
+    color: white;
+    font-size: 15px;
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+   <h1>High Excellence Advisory</h1>
+   <nav>
+     <ul>
+        <li><a href="index.html" target="_self">Home</a></li>
+        <li><a href="about.html" target="_self">About Us</a></li>
+        <li><a href="services.html" target="_self">Our Services</a></li>
+        <li><a href="universities.html" target="_self">Studies in Malaysia</a></li>
+        <li><a href="contact.html" target="_self">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+   <h2>How can we help you?</h2>
+
+   <div class="search-container">
+   <span class="search-icon">&#128269;</span>
+   <input type="text" id="searchInput" placeholder="Search..." onkeyup="showSuggestions()">
+   <div id="suggestions" class="suggestions-box"></div>
+  </div>
+
+<p>We are a licensed student recruitment agency based in Petaling Jaya, Malaysia - connecting international students from ASEAN and Africa to Malaysia's top universities.</p>
+
+<p>Our goal is to make studying in Malaysia a smooth and rewarding journey through guidance, visa support, and continuous assistance.</p>
+</main>
+
+<footer>
+    <h3>Contact: +6017 282 7075 | highexcellence@outlook.com</h3>
+    <h3>©2025 High Excellence Advisory. All Rights Reserved.</h3>
+</footer>
+
+<script>
+const pages = [
+   {keyword: "university", page: "universities.html"},
+   {keyword: "visa & immigration guidance", page: "services.html"},
+   {keyword: "accommodation", page: "services.html"},
+   {keyword: "airport assistance", page: "services.html"},
+   {keyword: "contact", page: "contact.html" },
+   ];
+
+function showSuggestions() {
+  let input = document.getElementById("searchInput").value.toLowerCase();
+  let suggestionBox = document.getElementById("suggestions");
+
+  if (input.trim() === "") {
+  suggestionBox.style.display = "none";
+  suggestionBox.innerHTML = "";
+  return;
+}
+
+let matches = pages.filter(item => item.keyword.includes(input));
+
+   suggestionBox.innerHTML = "";
+   matches.forEach(item => {
+     let div = document.createElement("div");
+     div.textContent = item.keyword;
+     div.onclick = () => {
+     window.location.href = item.page;
+     };
+     suggestionBox.appendChild(div);
+   });
+
+     suggestionBox.style.display = matches.length > 0 ? "block" : "none";
+   }
+
+document.getElementById("searchInput").addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    let input = e.target.value.toLowerCase();
+    let found = pages.find(item => item.keyword.includes(input));
+    if (found) {
+      window.location.href = found.page;
+    } else {
+      alert("No matching result found.");
+     }
+    }
+   });
+</script>
+
+</body>
+</html>
